@@ -1,4 +1,7 @@
-import client from './myclient.js';
+import client from './mqClient.js';
+
+export const TASK_NAME = 'local_tasks';
+export const TASK_AMOUNT = 20;
 
 export const getRedisValue = (key) => {
     return new Promise((resolve) => {
@@ -12,11 +15,12 @@ export const setRedisValue = (key, value) => {
     });
 };
 
-export const delRedisKey = (key) => {
-    return new Promise((resolve) => {
-        client.del(key, resolve);
-    });
-};
+export const delRedisKey = (key) => client.del(key);
 
-export const TASK_NAME = 'local_tasks'
-export const TASK_AMOUNT = 20
+export const popTask = async () => {
+    const result = await client.blPop(TASK_NAME, 1000)
+    // console.log(result)
+    return result?.element || ''
+}
+
+

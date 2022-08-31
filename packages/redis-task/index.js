@@ -1,8 +1,15 @@
-import * as Redis from 'redis'
+import {taskHandler} from './tasksHandler.js';
+import client from './mqClient.js';
 
-const client = Redis.createClient({
-    host: '127.0.0.1',
-    port: '6379'
-})
+client.on('connect', () => {
+    console.log('Redis is connected!');
+});
+client.on('ready', async () => {
+    console.log('Redis is ready!');
+    await taskHandler();
+});
+client.on('error', (e) => {
+    console.log('Redis error! ' + e);
+});
 
-export default client
+await client.connect();

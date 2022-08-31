@@ -1,0 +1,17 @@
+{
+  "name": "redis-task",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start:pm2": "pm2 start ./index.js -i 4 && pm2 logs",
+    "stop:pm2": "pm2 delete all & pm2 flush"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "redis": "^4.3.0"
+  },
+  "type": "module"
+}
