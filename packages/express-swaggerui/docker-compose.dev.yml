@@ -1,0 +1,16 @@
+version: '3.8'
+services:  # services 又名 containers
+  backend:
+    #build:
+    #  context: .
+    image: express-docker  # 指名道姓用哪个镜像，也可以用 build 直接编译
+    ports:
+      - 8080:8080
+      - 9229:9229
+    environment:
+      - SERVER_PORT=8080
+    volumes:
+      - ./:/app
+      - /app/node_modules  # Remove this if you have pure JS dependencies
+    # command: npm start
+
